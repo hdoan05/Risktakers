@@ -5,6 +5,15 @@ const MEDALS = { 1: "🥇", 2: "🥈", 3: "🥉" };
 
 export default function LeaderboardTable() {
   const { leaderboard, currentUser } = useData();
+
+  if (!leaderboard || leaderboard.length === 0) {
+    return (
+      <div className="card lb-table-wrap">
+        <p className="lb-empty">No players on the leaderboard yet.</p>
+      </div>
+    );
+  }
+
   const lastShown = leaderboard[leaderboard.length - 1];
   const pointsBehind = lastShown.points - currentUser.balance;
   const userUp = currentUser.changePct >= 0;
